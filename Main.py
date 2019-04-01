@@ -1,12 +1,10 @@
 import numpy as np
 import copy
-matrix = [[0,5,3,9],
-		[5,0,1,4],
-		[3,1,0,6],
-		[9,4,6,0]]
-#matrix = []
+matrix = np.fromfile("matrix.dta", sep="-").tolist()
 alfa = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 def initMatrix():
+	global matrix
+	matrix = []
 	matrixpart = []
 	x = int(input("X: "))
 	y = int(input("Y: "))
@@ -21,6 +19,8 @@ def initMatrix():
 			matrixpart.append(int(part))
 		matrix.append(matrixpart)
 		userinput = ""
+	npmatrix = np.array(matrix)
+	npmatrix.tofile("matrix.dta", "-")
 def displayMatrix(list):
 	for part in list:
 		print part
@@ -89,7 +89,7 @@ def dijkstrasAlgorithm():
 			del edited[edited.index(min(edited))]
 		for a in range(0,len(edited)):
 			edited[a] += length
-		editedHist.append(list(edited))
+		editedHist.append(edited)
 		displayMatrix(editedHist)
 		if edited == []:
 			print "ikke sammenhengende"
@@ -111,7 +111,10 @@ def opphoyd():
 		npmatrix = np.dot(npmatrix, npmatrix)
 	print npmatrix
 	print "sum of original: "  + str(sum)
-	print "sum of potens: " + str(np.dot(npmatrix, np.full(len(matrix[0]),1)))
+	sum = np.dot(npmatrix, np.full(len(matrix[0]),1))
+	print "sum of potens: " + str(sum)
+	sum = sum.tolist()
+	print "highest priority: " + str(alfa[sum.index(max(sum))])
 	
 def meny():
 	print "1. input matrix"
