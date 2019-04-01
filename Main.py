@@ -1,10 +1,10 @@
 import numpy as np
 import copy
-#matrix = [[0,5,3,9],
-#		[5,0,1,4],
-#		[3,1,0,6],
-#		[9,4,6,0]]
-matrix = []
+matrix = [[0,5,3,9],
+		[5,0,1,4],
+		[3,1,0,6],
+		[9,4,6,0]]
+#matrix = []
 alfa = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 def initMatrix():
 	matrixpart = []
@@ -102,14 +102,38 @@ def dijkstrasAlgorithm():
 	displayAlfa(answer)
 def opphoyd():
 	grad = int(raw_input("grad?:"))
+	divide = int(raw_input("divide by length?(1=true):"))
 	npmatrix = np.array(matrix)
+	sum = np.dot(npmatrix, np.full(len(matrix[0]),1))
+	if divide == 1:
+		npmatrix = np.array(matrix)/np.hypot(sum,len(matrix[0]))
 	for i in range(0,grad-1):
 		npmatrix = np.dot(npmatrix, npmatrix)
 	print npmatrix
-initMatrix()
-displayMatrix(matrix)
-#primsAlgorithm()
-#dijkstrasAlgorithm()
-opphoyd()
+	print "sum of original: "  + str(sum)
+	print "sum of potens: " + str(np.dot(npmatrix, np.full(len(matrix[0]),1)))
+	
+def meny():
+	print "1. input matrix"
+	print "2. display matrix"
+	print "3. primsAlgorithm"
+	print "4. djikstrasAlgorithm"
+	print "5. dot operator"
+def handlemeny():
+	inp = int(raw_input("Command(1-5): "))
+	if inp == 1:
+		initMatrix()
+	elif inp == 2:
+		displayMatrix(matrix)
+	elif inp == 3:
+		primsAlgorithm()
+	elif inp == 4:
+		dijkstrasAlgorithm()
+	elif inp == 5:
+		opphoyd()
+	meny()
+	handlemeny()
+meny()
+handlemeny()
 
 
